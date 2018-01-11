@@ -1,0 +1,154 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!--<link rel="icon" href="../../favicon.ico"> -->
+
+    <title>Order Catalog</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/catalog.css" rel="stylesheet">
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug 
+    <link href="../../assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet"> -->
+
+    <!-- Custom styles for this template
+    <link href="jumbotron.css" rel="stylesheet"> -->
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body ng-app="catalogs.module"> 
+  	<div ng-controller="CatalogsIndexController"> 
+  
+  	<nav class="navbar navbar-inverse navbar-fixed-top">
+	     <div class="container">
+	       <div class="navbar-header">
+	         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+	           <span class="sr-only">Toggle navigation</span>
+	           <span class="icon-bar"></span>
+	           <span class="icon-bar"></span>
+	           <span class="icon-bar"></span>
+	         </button>
+	         <a class="navbar-brand" ui-sref="template-index">Página Inicial</a>	         
+	       </div>
+	       <div id="navbar" class="navbar-collapse collapse">
+	       
+	       <!-- Botão vendas -->
+	       	<ul class="nav navbar-nav">
+             <li class="dropdown" ng-show="hasUserLog()">
+                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Pedidos <span class="caret"></span></a>
+                 <ul class="dropdown-menu">
+                   <!--<li class="dropdown-header">--Vendedor--</li> -->
+                   <li><a ui-sref="pedido-index">Novo Pedido</a></li>                                      
+                 </ul>
+               </li>               
+	        </ul>
+	        <!-- Botão admin -->
+	        <ul class="nav navbar-nav">
+             <li class="dropdown" ng-show="isAdmin()">
+                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Administrador <span class="caret"></span></a>
+                 <ul class="dropdown-menu">
+                   <li><a ui-sref="cadastro-vendedor">Cadastrar Usuário</a></li>
+                 </ul>
+               </li>               
+	        </ul>
+	        <div class="navbar-form navbar-right">
+	        	
+        		<div ng-show="hasUserLog()">
+	        		<!--<h5 class="titulo">Usuário: {{user.name}}</h5>-->
+	        		<button class="btn btn-primary" ui-sref="#paginaUsuario">Usuário: {{user.name}}</button>
+        		</div>
+	        	<div ng-show="!hasUserLog()">
+		        	<button class="btn btn-success" data-toggle="modal" data-target="#modalLogin">Login</button>
+	        	</div>           
+	        	
+	        	
+	        </div>
+	       </div><!--/.navbar-collapse -->
+	  </div>
+	</nav>
+
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="jumbotron">
+      <div class="container">
+            
+	      <ui-view>
+	      	<h1>Catálogos</h1>
+	        <p>Espaço para exibição de catálogos disponíveis</p>
+	    	
+	        <p><a class="btn btn-primary btn-lg" href="#" role="button">Saiba Mais &raquo;</a></p>
+	      </ui-view>
+   	 
+        
+      </div>
+    </div>
+
+    <div class="container">
+      <footer>
+        <p>&copy; 2017 Company, Inc.</p>
+      </footer>
+    </div> <!-- /container -->
+    
+    <!-- Modal Login -->
+	  <div class="modal fade" id="modalLogin" role="dialog">
+	    <div class="modal-dialog modal-sm">
+	      <div class="modal-content">
+	        <div class="modal-header">
+	          <button type="button" class="close" data-dismiss="modal">&times;</button>
+	          <h4 class="modal-title">Faça seu login</h4>
+	        </div>
+	        <div>
+	          
+				<div class="container col-sm-12">
+
+			      <form class="form-signin">
+			        <input type="text" id="inputEmail" class="form-control" ng-model="login.mail" placeholder="E-mail" required autofocus>
+			        <input type="password" id="inputPassword" class="form-control" ng-model="login.password" placeholder="Senha" required>
+			        <div class="checkbox">
+			          <label>
+			            <input type="checkbox" value="remember-me"> Lembrar-me neste dispositivo
+			          </label>
+			        </div>
+			        <button class="btn btn-lg btn-primary btn-block" ng-click="login(login.mail, login.password)" data-dismiss="modal" ng-disabled="!login.mail || !login.password">Entrar</button>
+			      </form>
+			
+			    </div> <!-- /container -->
+
+	        </div>
+	        <div class="modal-footer">
+	        </div>
+	      </div>
+	    </div>
+	  </div>
+	 </div>
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="js/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+    
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/angular.min.js"></script>
+    <script src="js/angular-ui-router.js"></script>
+    <script src="app.js"></script>
+    <script src="js/index.controller.js"></script>
+    <script src="js/catalogs.service.js"></script>     
+     
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug 
+    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>-->
+  </body>
+</html>
